@@ -14,7 +14,7 @@ Tired of ...
 ### Installation
 
 ```bash
-$ npm i ok-run
+$ npm i mdok
 ```
 
 ### Features
@@ -37,12 +37,3 @@ $ ok run tar  # equivalent
 ```bash
 $ ok list
 ```
-
-### Writing receipts
-tbd.
-
-### TODO
-
-* Add autocompletion for local paths [ ]
-* Add support for different syntax based on OS used [ ]
-* Add post-action hooks (e.g. show path/open resulting file) [ ]

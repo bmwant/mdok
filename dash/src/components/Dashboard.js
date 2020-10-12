@@ -25,8 +25,8 @@ import { getConfig, getPage, getPages } from '../Api';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="#">
+      {'Created with '}
+      <Link color="inherit" href="https://github.com/bmwant/mdok" target="_blank">
         mdok
       </Link>{' '}
       {new Date().getFullYear()}
@@ -162,7 +162,7 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             {header}
           </Typography>
-          <IconButton color="inherit">
+          <IconButton href="https://github.com/bmwant/mdok" target="_blank" color="inherit">
             <GithubIcon />
           </IconButton>
         </Toolbar>
