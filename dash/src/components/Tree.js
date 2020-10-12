@@ -4,12 +4,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import Typography from '@material-ui/core/Typography';
-import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Label from '@material-ui/icons/Label';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import InfoIcon from '@material-ui/icons/Folder';
-import ForumIcon from '@material-ui/icons/FolderOpen';
+import FolderIcon from '@material-ui/icons/FolderOpen';
 import {
   Description,
 } from '@material-ui/icons';
@@ -114,8 +113,45 @@ const useStyles = makeStyles({
   },
 });
 
-export default function FolderTreeView() {
+const lst = ["node_modules/vary/README.md","node_modules/wrappy/README.md","README.md","test/testdoc.md"]
+
+function convertListToTree(inputList) {
+
+}
+
+function buildItemsTree(nodeLevel, subtree, handler) {
+  var itemsTree = [];
+  subtree.forEach((elem, index) => {
+    const nodeId = `${nodeLevel}-${index}`;
+    if(elem.children !== undefined) {
+      const childItems = buildItemsTree(nodeLevel+1, elem.children);
+      const count = childItems.length;
+      itemsTree.push(<StyledTreeItem key={nodeId} nodeId={nodeId}
+        labelText={elem.name} labelIcon={FolderIcon} labelInfo={count}
+        onClick={(e) => handler(e, elem.name)}>
+        {childItems}
+      </StyledTreeItem>);
+    } else {
+      itemsTree.push(<StyledTreeItem key={nodeId} nodeId={nodeId}
+        labelText={elem.name} labelIcon={Description}
+        onClick={(e) => handler(e, elem.name)}
+      />)
+    }
+  });
+  return itemsTree;
+}
+
+export default function FolderTreeView(props) {
   const classes = useStyles();
+
+  function handleClick(e, pageId) {
+    e.preventDefault();
+    props.changeSelected(pageId);
+  }
+  const tree = [{name: 'one', children: [
+    {name: 'sub1.md'}, {name: 'sub2.md'}
+  ]}, {name: 'README.md'}, {name: 'test.md'}];
+  const items = buildItemsTree(0, tree, handleClick);
 
   return (
     <TreeView
@@ -124,29 +160,7 @@ export default function FolderTreeView() {
       defaultExpandIcon={<ArrowRightIcon />}
       defaultEndIcon={<div style={{ width: 24 }} />}
     >
-      <StyledTreeItem nodeId="1" labelText="All Mail" labelIcon={Description} />
-      <StyledTreeItem nodeId="2" labelText="Trash" labelIcon={DeleteIcon} />
-      <StyledTreeItem nodeId="3" labelText="Categories" labelIcon={Label}>
-        <StyledTreeItem
-          nodeId="5"
-          labelText="Social"
-          labelIcon={SupervisorAccountIcon}
-          labelInfo="90"
-        />
-        <StyledTreeItem
-          nodeId="6"
-          labelText="Updates"
-          labelIcon={InfoIcon}
-          labelInfo="2,294"
-        />
-        <StyledTreeItem
-          nodeId="7"
-          labelText="Forums"
-          labelIcon={ForumIcon}
-          labelInfo="3,566"
-        />
-      </StyledTreeItem>
-      <StyledTreeItem nodeId="4" labelText="History" labelIcon={Label} />
+      {items}
     </TreeView>
   );
 }

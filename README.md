@@ -19,8 +19,7 @@ $ npm i mdok
 
 ### Features
 
-* Hints/examples/default on parameters
-* Validation for parameters entered
+
 
 
 ### Usage
@@ -29,11 +28,4 @@ $ npm i mdok
 
 ```bash
 $ ok tar
-$ ok run tar  # equivalent
-```
-
-* List available receipes
-
-```bash
-$ ok list
 ```

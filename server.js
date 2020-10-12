@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/tree', function (req, res) {
-  glob("*.md", function (er, files) {
+  glob("**/*.md", function (er, files) {
     res.json(files)
     // files.forEach(f => {
     //   console.log(f);
