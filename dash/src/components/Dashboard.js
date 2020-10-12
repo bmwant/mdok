@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import GithubIcon from '@material-ui/icons/GitHub';
 import FolderTreeView from './Tree';
 import ReactMarkdown from 'react-markdown';
-import { getConfig, getPage, getPages } from '../Api';
+import { getConfig, getPage, getTree } from '../Api';
 
 
 function Copyright() {
@@ -132,7 +132,7 @@ export default function Dashboard() {
   const handleSelected = (pageId) => {
     getPage(pageId).then((loadedPage) =>
       setPage(loadedPage)
-    )
+    ).catch(error => console.log(error));
   };
 
   React.useEffect(() => {
@@ -140,7 +140,7 @@ export default function Dashboard() {
       const indexPage = config.index;
       setHeader(config.header);
       getPage(indexPage).then((index) => setPage(index)).catch((error) => console.error(error));
-      getPages().then((pages) => setTree(pages)).catch((error) => console.error(error));
+      getTree().then((res) => setTree(res)).catch((error) => console.error(error));
     })
 
   }, []);
@@ -180,8 +180,7 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        {/* <Tree items={tree} changeSelected={handleSelected} /> */}
-        <FolderTreeView items={tree} changeSelected={handleSelected} />
+        <FolderTreeView tree={tree} changeSelected={handleSelected} />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

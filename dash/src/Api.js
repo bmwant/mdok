@@ -4,7 +4,7 @@ export async function getConfig() {
   return await fetch(`${API_URL}/`).then(res => res.json());
 }
 
-export async function getPages() {
+export async function getTree() {
   return await fetch(`${API_URL}/tree`).then(res => res.json());
 }
 

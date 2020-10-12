@@ -113,28 +113,21 @@ const useStyles = makeStyles({
   },
 });
 
-const lst = ["node_modules/vary/README.md","node_modules/wrappy/README.md","README.md","test/testdoc.md"]
-
-function convertListToTree(inputList) {
-
-}
-
 function buildItemsTree(nodeLevel, subtree, handler) {
   var itemsTree = [];
   subtree.forEach((elem, index) => {
     const nodeId = `${nodeLevel}-${index}`;
     if(elem.children !== undefined) {
-      const childItems = buildItemsTree(nodeLevel+1, elem.children);
-      const count = childItems.length;
+      const childItems = buildItemsTree(nodeLevel+1, elem.children, handler);
+      const count = childItems.length.toString();
       itemsTree.push(<StyledTreeItem key={nodeId} nodeId={nodeId}
-        labelText={elem.name} labelIcon={FolderIcon} labelInfo={count}
-        onClick={(e) => handler(e, elem.name)}>
+        labelText={elem.name} labelIcon={FolderIcon} labelInfo={count}>
         {childItems}
       </StyledTreeItem>);
     } else {
       itemsTree.push(<StyledTreeItem key={nodeId} nodeId={nodeId}
         labelText={elem.name} labelIcon={Description}
-        onClick={(e) => handler(e, elem.name)}
+        onClick={(e) => handler(e, elem.path)}
       />)
     }
   });
@@ -148,10 +141,8 @@ export default function FolderTreeView(props) {
     e.preventDefault();
     props.changeSelected(pageId);
   }
-  const tree = [{name: 'one', children: [
-    {name: 'sub1.md'}, {name: 'sub2.md'}
-  ]}, {name: 'README.md'}, {name: 'test.md'}];
-  const items = buildItemsTree(0, tree, handleClick);
+
+  const items = buildItemsTree(0, props.tree, handleClick);
 
   return (
     <TreeView
