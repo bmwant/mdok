@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import GithubIcon from '@material-ui/icons/GitHub';
 import FolderTreeView from './Tree';
 import ReactMarkdown from 'react-markdown';
 import { getConfig, getPage, getPages } from '../Api';
@@ -163,9 +163,7 @@ export default function Dashboard() {
             {header}
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+            <GithubIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
