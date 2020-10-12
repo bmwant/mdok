@@ -17,7 +17,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { Tree } from './listItems';
+import FolderTreeView from './Tree';
 import ReactMarkdown from 'react-markdown';
 import { getConfig, getPage, getPages } from '../Api';
 
@@ -90,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
+    width: 0,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+      width: 0,
     },
   },
   appBarSpacer: theme.mixins.toolbar,
@@ -182,7 +182,8 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <Tree items={tree} changeSelected={handleSelected} />
+        {/* <Tree items={tree} changeSelected={handleSelected} /> */}
+        <FolderTreeView items={tree} changeSelected={handleSelected} />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
